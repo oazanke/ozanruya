@@ -1,125 +1,271 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<title>Rüya ❤️ Ozan</title>
-
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Seninle Her Gün 🤍</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap%22 rel="stylesheet"/>
 <style>
-
-body{
-margin:0;
-background:#0f0f0f;
-color:white;
-font-family:Arial;
-text-align:center;
-overflow-x:hidden;
-}
-
-h1{
-font-size:60px;
-margin-top:80px;
-color:#ff4d6d;
-}
-
-p{
-font-size:22px;
-max-width:700px;
-margin:auto;
-line-height:1.6;
-}
-
-.counter{
-margin-top:40px;
-font-size:28px;
-color:#ff4d6d;
-}
-
-.hearts{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-}
-
-.heart{
-position:absolute;
-color:#ff4d6d;
-animation:fall 6s linear infinite;
-}
-
-@keyframes fall{
-0%{
-transform:translateY(-10vh);
-opacity:1;
-}
-100%{
-transform:translateY(110vh);
-opacity:0;
-}
-}
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a0a0f 0%, #2d0a1a 40%, #1a0a2e 100%);
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+ 
+    .stars { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+    .star { position:absolute; background:#fff; border-radius:50%; animation: twinkle var(--d) ease-in-out infinite alternate; }
+    @keyframes twinkle { from{opacity:.1;transform:scale(1)} to{opacity:.9;transform:scale(1.4)} }
+ 
+    .hearts-container { position:fixed; bottom:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+    .heart { position:absolute; bottom:-60px; font-size:var(--s); animation:floatUp var(--dur) ease-in infinite; opacity:0; }
+    @keyframes floatUp {
+      0%   { transform:translateY(0) rotate(var(--r)); opacity:0; }
+      10%  { opacity:1; }
+      90%  { opacity:.6; }
+      100% { transform:translateY(-110vh) rotate(calc(var(--r) + 30deg)); opacity:0; }
+    }
+ 
+    .container {
+      position:relative; z-index:10;
+      display:flex; flex-direction:column; align-items:center;
+      gap:36px; padding:48px 20px 60px; text-align:center; width:100%; max-width:800px;
+    }
+ 
+    .anniversary-badge {
+      background:rgba(255,255,255,.07); border:1px solid rgba(255,182,193,.3);
+      backdrop-filter:blur(10px); border-radius:50px; padding:10px 28px;
+      color:#ffb6c1; font-size:.85rem; letter-spacing:2px; text-transform:uppercase;
+    }
+ 
+    .main-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.2rem,6vw,4rem); color:#fff; line-height:1.2;
+      text-shadow:0 0 40px rgba(255,100,130,.5);
+    }
+    .main-title span { font-style:italic; color:#ff8fab; }
+ 
+    .counter-card {
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,143,171,.25);
+      backdrop-filter:blur(16px); border-radius:24px; padding:36px 48px;
+      display:flex; flex-direction:column; align-items:center; gap:10px;
+      box-shadow:0 8px 40px rgba(255,80,120,.15);
+    }
+    .counter-label { color:#ffb6c1; font-size:.8rem; letter-spacing:3px; text-transform:uppercase; }
+    .counter-number {
+      font-family:'Playfair Display',serif; font-size:clamp(4rem,12vw,7rem);
+      color:#fff; line-height:1; text-shadow:0 0 30px rgba(255,100,150,.7);
+    }
+    .counter-sub { color:rgba(255,255,255,.5); font-size:.85rem; letter-spacing:1px; }
+ 
+    .info-row { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+    .info-box {
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,143,171,.2);
+      backdrop-filter:blur(10px); border-radius:16px; padding:18px 28px;
+      color:rgba(255,255,255,.8); font-size:.85rem; letter-spacing:.5px;
+    }
+    .info-box strong { display:block; color:#ff8fab; font-family:'Playfair Display',serif; font-size:1.1rem; margin-bottom:4px; }
+ 
+    /* GALERİ */
+    .gallery-title {
+      font-family:'Playfair Display',serif; font-style:italic;
+      color:#ffb6c1; font-size:1.3rem; letter-spacing:1px;
+    }
+ 
+    .gallery {
+      width:100%; position:relative;
+    }
+ 
+    .slides { position:relative; width:100%; aspect-ratio:3/4; max-height:520px; border-radius:24px; overflow:hidden; box-shadow:0 16px 60px rgba(255,80,120,.3); }
+    .slide { position:absolute; inset:0; opacity:0; transition:opacity .8s ease; }
+    .slide.active { opacity:1; }
+    .slide img {
+      width:100%; height:100%; object-fit:cover;
+      filter:brightness(.92) saturate(1.1);
+    }
+    .slide-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(20,5,15,.6) 0%, transparent 50%);
+    }
+ 
+    .gallery-nav {
+      display:flex; justify-content:center; gap:10px; margin-top:16px;
+    }
+    .dot {
+      width:8px; height:8px; border-radius:50%;
+      background:rgba(255,143,171,.3); cursor:pointer; transition:all .3s;
+    }
+    .dot.active { background:#ff8fab; transform:scale(1.3); }
+ 
+    .gallery-arrows {
+      position:absolute; top:50%; left:0; right:0;
+      transform:translateY(-50%); display:flex; justify-content:space-between;
+      padding:0 12px; pointer-events:none;
+    }
+    .arr {
+      pointer-events:all; background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,143,171,.3); backdrop-filter:blur(8px);
+      color:#fff; border-radius:50%; width:40px; height:40px;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:1.1rem; transition:background .3s;
+    }
+    .arr:hover { background:rgba(255,143,171,.3); }
+ 
+    .love-message {
+      font-family:'Playfair Display',serif; font-style:italic;
+      font-size:clamp(1.1rem,3vw,1.5rem); color:rgba(255,182,193,.85);
+      max-width:500px; line-height:1.7;
+    }
+ 
+    .divider { width:80px; height:1px; background:linear-gradient(90deg,transparent,#ff8fab,transparent); }
 </style>
 </head>
-
 <body>
-
-<h1>Rüya ❤️ Ozan</h1>
-
-<p>
-Hayatımda aldığım en doğru karar seni sevmekti.
-Bu küçük site sana olan sevgimin küçük bir hatırası.
-</p>
-
-<div class="counter" id="counter"></div>
-
+ 
+<div class="stars" id="stars"></div>
+<div class="hearts-container" id="hearts"></div>
+ 
+<div class="container">
+ 
+  <div class="anniversary-badge">💍 Yıl Dönümümüz — 6 Şubat 2025</div>
+ 
+  <h1 class="main-title">Seni Çok<br/><span>Seviyorum</span> 🤍</h1>
+ 
+  <div class="divider"></div>
+ 
+  <div class="counter-card">
+<div class="counter-label">Birlikte geçirdiğimiz</div>
+<div class="counter-number" id="dayCount">—</div>
+<div class="counter-sub">gün oldu, her biri seninle güzel 🌸</div>
+</div>
+ 
+  <div class="info-row">
+<div class="info-box">
+<strong>💗 Tanıştığımız Gün</strong>
+      12 Şubat 2025
+</div>
+<div class="info-box">
+<strong>🌙 Bugün</strong>
+<span id="todayDate">—</span>
+</div>
+</div>
+ 
+  <div class="divider"></div>
+ 
+  <div class="gallery-title">✨ Bizim Anlarımız ✨</div>
+ 
+  <div class="gallery">
+<div class="slides" id="slides">
+<div class="slide active">
+<img src="https://drive.google.com/thumbnail?id=1irJAGLYR3PRCZGqVkrb_qCmTXp3qUNki&sz=w800" alt="Anımız 1"/>
+<div class="slide-overlay"></div>
+</div>
+<div class="slide">
+<img src="https://drive.google.com/thumbnail?id=1MMf1FeI86n0f5zmNOAoEgf4IIKg_u1Th&sz=w800" alt="Anımız 2"/>
+<div class="slide-overlay"></div>
+</div>
+<div class="slide">
+<img src="https://drive.google.com/thumbnail?id=1hZGc3WFp30r2twPS-eUmohdNw3CD6GK0&sz=w800" alt="Anımız 3"/>
+<div class="slide-overlay"></div>
+</div>
+<div class="slide">
+<img src="https://drive.google.com/thumbnail?id=18o3QtXfU6ZhvnsRHi0UrBuEZ9QYjIuil&sz=w800" alt="Anımız 4"/>
+<div class="slide-overlay"></div>
+</div>
+<div class="slide">
+<img src="https://drive.google.com/thumbnail?id=1QVRCG7d-p3lj5KgV_r7eWqZ_MQsTiiqI&sz=w800" alt="Anımız 5"/>
+<div class="slide-overlay"></div>
+</div>
+</div>
+ 
+    <div class="gallery-arrows">
+<button class="arr" id="prev">‹</button>
+<button class="arr" id="next">›</button>
+</div>
+</div>
+ 
+  <div class="gallery-nav" id="dots"></div>
+ 
+  <div class="love-message">
+    "Her sabah gözlerimi açtığımda,<br/>
+    en güzel şans seninle tanışmak oldu."
+</div>
+ 
+  <div class="divider"></div>
+ 
+</div>
+ 
 <script>
-
-const startDate = new Date("2024-01-01")
-
-function updateCounter(){
-
-const now = new Date()
-
-const diff = now - startDate
-
-const days = Math.floor(diff / (1000*60*60*24))
-
-document.getElementById("counter").innerHTML =
-"Birlikte geçen gün: ❤️ " + days
-
-}
-
-updateCounter()
-
-setInterval(updateCounter,1000)
-
-function createHeart(){
-
-const heart = document.createElement("div")
-
-heart.className="heart"
-
-heart.innerHTML="❤️"
-
-heart.style.left=Math.random()*100+"vw"
-
-heart.style.fontSize=(Math.random()*30+10)+"px"
-
-heart.style.animationDuration=(Math.random()*3+3)+"s"
-
-document.body.appendChild(heart)
-
-setTimeout(()=>{
-heart.remove()
-},6000)
-
-}
-
-setInterval(createHeart,300)
-
+  // Yıldızlar
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const sz = Math.random()*2.5+.5;
+    s.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${(Math.random()*3+1.5).toFixed(1)}s`;
+    starsEl.appendChild(s);
+  }
+ 
+  // Kalpler
+  const heartsEl = document.getElementById('hearts');
+  const hChars = ['🤍','💗','💕','🌸','💞','✨','🩷','💓'];
+  function spawnHeart() {
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.textContent = hChars[Math.floor(Math.random()*hChars.length)];
+    const dur = (Math.random()*5+5).toFixed(1);
+    h.style.cssText = `left:${Math.random()*100}%;--s:${(Math.random()*1.4+.8).toFixed(1)}rem;--dur:${dur}s;--r:${(Math.random()*30-15).toFixed(1)}deg;animation-delay:${(Math.random()*4).toFixed(1)}s`;
+    heartsEl.appendChild(h);
+    setTimeout(() => h.remove(), (parseFloat(dur)+5)*1000);
+  }
+  for (let i = 0; i < 18; i++) spawnHeart();
+  setInterval(spawnHeart, 600);
+ 
+  // Gün sayacı
+  function calcDays() {
+    const start = new Date('2025-02-12T00:00:00');
+    const diff = Math.floor((new Date()-start)/(1000*60*60*24))+1;
+    document.getElementById('dayCount').textContent = diff;
+    document.getElementById('todayDate').textContent = new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});
+  }
+  calcDays();
+  setInterval(calcDays, 60000);
+ 
+  // Galeri slider
+  const slides = document.querySelectorAll('.slide');
+  const dotsEl = document.getElementById('dots');
+  let cur = 0, timer;
+ 
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i===0?' active':'');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+ 
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    dotsEl.children[cur].classList.remove('active');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dotsEl.children[cur].classList.add('active');
+    resetTimer();
+  }
+ 
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(cur+1), 3500);
+  }
+ 
+  document.getElementById('next').onclick = () => goTo(cur+1);
+  document.getElementById('prev').onclick = () => goTo(cur-1);
+  resetTimer();
 </script>
-
 </body>
 </html>
