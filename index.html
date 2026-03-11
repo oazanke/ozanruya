@@ -2,60 +2,124 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Rüya & Ozan ❤️</title>
+<title>Rüya ❤️ Ozan</title>
 
 <style>
+
 body{
+margin:0;
 background:#0f0f0f;
 color:white;
 font-family:Arial;
 text-align:center;
-padding:40px;
+overflow-x:hidden;
 }
 
 h1{
 font-size:60px;
+margin-top:80px;
 color:#ff4d6d;
 }
 
 p{
-font-size:20px;
+font-size:22px;
 max-width:700px;
 margin:auto;
+line-height:1.6;
+}
+
+.counter{
+margin-top:40px;
+font-size:28px;
+color:#ff4d6d;
+}
+
+.hearts{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
 }
 
 .heart{
-font-size:40px;
-animation:beat 1s infinite;
+position:absolute;
+color:#ff4d6d;
+animation:fall 6s linear infinite;
 }
 
-@keyframes beat{
-0%{transform:scale(1);}
-50%{transform:scale(1.3);}
-100%{transform:scale(1);}
+@keyframes fall{
+0%{
+transform:translateY(-10vh);
+opacity:1;
 }
+100%{
+transform:translateY(110vh);
+opacity:0;
+}
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>Rüya & Ozan ❤️</h1>
+<h1>Rüya ❤️ Ozan</h1>
 
 <p>
-Sen hayatıma gelen en güzel şeysin.
-Bu küçük site senin için.
+Hayatımda aldığım en doğru karar seni sevmekti.
+Bu küçük site sana olan sevgimin küçük bir hatırası.
 </p>
 
-<br>
+<div class="counter" id="counter"></div>
 
-<div class="heart">❤️ ❤️ ❤️</div>
+<script>
 
-<br><br>
+const startDate = new Date("2024-01-01")
 
-<p>
-Tanıştığımız gün: <br>
-<b>11 Mart 2026</b>
-</p>
+function updateCounter(){
+
+const now = new Date()
+
+const diff = now - startDate
+
+const days = Math.floor(diff / (1000*60*60*24))
+
+document.getElementById("counter").innerHTML =
+"Birlikte geçen gün: ❤️ " + days
+
+}
+
+updateCounter()
+
+setInterval(updateCounter,1000)
+
+function createHeart(){
+
+const heart = document.createElement("div")
+
+heart.className="heart"
+
+heart.innerHTML="❤️"
+
+heart.style.left=Math.random()*100+"vw"
+
+heart.style.fontSize=(Math.random()*30+10)+"px"
+
+heart.style.animationDuration=(Math.random()*3+3)+"s"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>{
+heart.remove()
+},6000)
+
+}
+
+setInterval(createHeart,300)
+
+</script>
 
 </body>
 </html>
