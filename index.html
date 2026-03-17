@@ -2,7 +2,7 @@
 diff --git a/index.html b/index.html
 --- a/index.html
 +++ b/index.html
-@@ -301,6 +301,164 @@
+@@ -299,6 +299,171 @@
      .footer-note {
        color: rgba(255,255,255,.42);
        font-size: .82rem;
@@ -187,7 +187,7 @@ diff --git a/index.html b/index.html
 +      color: rgba(255,255,255,.65);
 +      font-size: .9rem;
 +    }
-@@ -437,6 +595,18 @@
+@@ -438,6 +603,18 @@
      @media (max-width: 600px) {
        body {
          padding: 0 8px;
@@ -209,8 +209,7 @@ diff --git a/index.html b/index.html
          padding: 30px 6px 44px;
          gap: 24px;
        }
-@@ -471,6 +641,7 @@
- 
+@@ -472,6 +649,7 @@
        .btn {
          width: 100%;
          min-height: 50px;
@@ -220,10 +219,11 @@ diff --git a/index.html b/index.html
  
        iframe {
          height: 280px;
-@@ -533,6 +704,62 @@
+@@ -540,6 +718,62 @@
+       </div>
        <div class="counter-sub">Bugün: <span id="todayDate">-</span></div>
      </div>
- 
++
 +    <div class="button-row">
 +      <button class="btn btn-secondary" id="themeToggleBtn" type="button">Gün Batımı Teması 🌅</button>
 +    </div>
@@ -283,12 +283,11 @@ diff --git a/index.html b/index.html
 +
 +      <div class="saved-notes" id="savedNotes"></div>
 +    </div>
-+
+ 
      <div class="info-row">
        <div class="info-box">
          <strong>Başlangıç</strong>
-         12 Şubat 2025
-@@ -890,6 +1117,140 @@
+@@ -890,6 +1124,140 @@
      for (let i = 0; i < initialHearts; i++) spawnHeart();
      setInterval(spawnHeart, heartInterval);
  
@@ -434,9 +433,7 @@ diff --git a/index.html b/index.html
      function calcTogetherTime() {
        const start = new Date('2025-02-12T00:00:00');
        const now = new Date();
-@@ -917,6 +1278,51 @@
-       document.getElementById('todayDate').textContent = now.toLocaleDateString('tr-TR', {
-         day: 'numeric',
+@@ -918,6 +1286,51 @@
          month: 'long',
          year: 'numeric'
        });
